@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ايميا كينجدم - محكمة برادس</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            direction: rtl;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0a0015 0%, #1a0033 50%, #0f0020 100%);
+            color: #e8d4b8;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* نجوم الخلفية */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            display: flex;
+            width: 100%;
+            gap: 0;
+        }
+
+        /* الجزء الأيسر - القائمة */
+        .left-section {
+            width: 280px;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, rgba(10, 0, 21, 0.98) 0%, rgba(26, 0, 51, 0.98) 100%);
+            border-left: 3px solid #d4af37;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        .nav-title {
+            text-align: center;
+            font-size: 22px;
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-item {
+            padding: 14px 12px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+            color: #e8d4b8;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: #d4af37;
+            color: #0a0015;
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .nav-item.active {
+            background: #d4af37;
+            color: #0a0015;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+            50% { box-shadow: 0 0 50px rgba(212, 175, 55, 1); }
+        }
+
+        /* زر القائمة للجوال */
+        .menu-btn {
+            display: none;
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            width: 55px;
+            height: 55px;
+            background: #d4af37;
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 998;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            font-weight: bold;
+            color: #0a0015;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        }
+
+        /* الجزء الأيمن - المحتوى */
+        .right-section {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            border-right: 3px solid #d4af37;
+        }
+
+        /* الشعار والعنوان */
+        .logo-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+            border-bottom: 3px solid #d4af37;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .logo-image {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 4px solid #d4af37;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(212, 175, 55, 0.3);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.8), 0 0 80px rgba(212, 175, 55, 0.5); }
+        }
+
+        .title-section h1 {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .title-section p {
+            font-size: 13px;
+            color: #b8956a;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        /* الصفحات */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .page.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #d4af37;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            font-weight: 900;
+            text-align: center;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(212, 175, 55, 0.8); }
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: #b8956a;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* البطاقات */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+            width: 100%;
+        }
+
+        .card {
+            perspective: 1000px;
+            cursor: pointer;
+            height: 340px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            border: 3px solid #d4af37;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s;
+        }
+
+        .card-front:hover,
+        .card-back:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
+        }
+
+        .card-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #d4af37;
+            margin-bottom: 12px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .card-name {
+            font-size: 22px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .card-title {
+            font-size: 12px;
+            opacity: 0.8;
+            color: #b8956a;
+        }
+
+        .achievements {
+            text-align: right;
+            line-height: 1.6;
+            width: 100%;
+            font-size: 12px;
+        }
+
+        .achievement-title {
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 6px;
+            color: #d4af37;
+        }
+
+        .achievement-item {
+            font-size: 11px;
+            margin: 6px 0;
+            padding: 6px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 6px;
+            color: #e8d4b8;
+        }
+
+        /* القوانين */
+        .laws-container {
+            max-width: 100%;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .law-item {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 12px 0;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .law-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: #d4af37;
+            animation: slideRight 0.8s ease-out;
+        }
+
+        @keyframes slideRight {
+            from { width: 0; }
+            to { width: 4px; }
+        }
+
+        .law-item:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .law-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #d4af37;
+            color: #0a0015;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-left: 12px;
+            font-size: 14px;
+            animation: numberPulse 2s infinite;
+        }
+
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .law-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            color: #d4af37;
+        }
+
+        .law-description {
+            font-size: 13px;
+            opacity: 0.85;
+            line-height: 1.5;
+            color: #e8d4b8;
+        }
+
+        /* الاختبار */
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            max-width: 100%;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #d4af37;
+            text-align: right;
+            animation: questionGlow 1s ease-in-out;
+        }
+
+        @keyframes questionGlow {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: right;
+            color: #e8d4b8;
+            font-weight: 600;
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.2);
+            transition: right 0.3s;
+            z-index: -1;
+        }
+
+        .quiz-option:hover::before {
+            right: 0;
+        }
+
+        .quiz-option:hover {
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .quiz-option.correct {
+            background: rgba(0, 255, 0, 0.2);
+            border-color: #00ff00;
+            animation: correctPulse 0.6s ease-out;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+            animation: incorrectShake 0.4s ease-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .quiz-result {
+            font-size: 16px;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            animation: resultPop 0.5s ease-out;
+        }
+
+        @keyframes resultPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .quiz-result.correct {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+
+        .quiz-result.incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+
+        .quiz-score {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 3px solid #d4af37;
+            border-radius: 12px;
+            text-align: center;
+            color: #d4af37;
+            animation: scoreReveal 0.8s ease-out;
+        }
+
+        @keyframes scoreReveal {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .quiz-btn {
+            padding: 10px 25px;
+            background: #d4af37;
+            color: #0a0015;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .quiz-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .quiz-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* الملاحظات */
+        .note-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+            border-right: 4px solid #d4af37;
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: right;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            width: 100%;
+        }
+
+        .note-title {
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .note-box div {
+            color: #e8d4b8;
+            margin: 6px 0;
+            line-height: 1.5;
+            font-size: 13px;
+        }
+
+        /* الروابط */
+        .contact-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 18px;
+            color: #d4af37;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .contact-link:hover {
+            background: #d4af37;
+            color: #0a0015;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* التذييل */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 2px solid #d4af37;
+            font-size: 12px;
+            opacity: 0.7;
+            color: #b8956a;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: right;
+            margin-top: 20px;
+            color: #d4af37;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 8px;
+            animation: headerSlide 0.6s ease-out;
+        }
+
+        @keyframes headerSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* الشاشة الافتتاحية */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 0, 21, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: splashFadeOut 4s ease-in-out forwards;
+        }
+
+        .splash-image {
+            width: 300px;
+            height: 300px;
+            animation: splashZoom 3s ease-in-out forwards;
+            border-radius: 50%;
+            border: 4px solid #d4af37;
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes splashZoom {
+            0% { transform: scale(2); opacity: 1; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        @keyframes splashFadeOut {
+            0% { opacity: 1; }
+            75% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section {
+                width: 100%;
+                border-left: none;
+                border-bottom: 3px solid #d4af37;
+                max-height: 200px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                padding: 15px;
+                position: relative;
+            }
+
+            .nav-title {
+                grid-column: 1 / -1;
+                margin-bottom: 10px;
+            }
+
+            .nav-item {
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            .right-section {
+                flex: 1;
+                border-right: none;
+                border-top: 3px solid #d4af37;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .left-section {
+                position: fixed;
+                left: -280px;
+                width: 250px;
+                height: 100vh;
+                top: 0;
+                z-index: 999;
+                transition: left 0.4s ease;
+                display: flex;
+                flex-direction: column;
+                border-left: 3px solid #d4af37;
+                border-bottom: none;
+                max-height: 100vh;
+            }
+
+            .left-section.open {
+                left: 0;
+            }
+
+            .right-section {
+                padding: 20px;
+                border-right: none;
+            }
+
+            .logo-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .title-section h1 {
+                font-size: 28px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- نجوم الخلفية -->
+    <div class="stars" id="starsContainer"></div>
+
+    <!-- الشاشة الافتتاحية -->
+    <div class="splash-screen">
+        <img src="75CF3D0E-7A2B-49B7-8529-81D0091C50F3.jpeg" alt="ايميا" class="splash-image">
+    </div>
+
+    <!-- زر القائمة للجوال -->
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- الحاوية الرئيسية -->
+    <div class="container">
+        <!-- الجزء الأيسر - القائمة -->
+        <div class="left-section" id="navSidebar">
+            <div class="nav-title">القوانين</div>
+            <div class="nav-item active" onclick="showPage('home', event)">الرئيسية</div>
+            <div class="nav-item" onclick="showPage('spam', event)">قوانين السبام</div>
+            <div class="nav-item" onclick="showPage('insult', event)">الشتم والاحتكاك</div>
+            <div class="nav-item" onclick="showPage('hisba', event)">الحسبة</div>
+            <div class="nav-item" onclick="showPage('court', event)">المحكمة</div>
+            <div class="nav-item" onclick="showPage('quiz', event)">اختبر معلوماتك</div>
+        </div>
+
+        <!-- الجزء الأيمن - المحتوى -->
+        <div class="right-section">
+            <!-- الشعار والعنوان -->
+            <div class="logo-section">
+                <img src="75CF3D0E-7A2B-49B7-8529-81D0091C50F3.jpeg" alt="ايميا كينجدم" class="logo-image">
+                <div class="title-section">
+                    <h1>محكمة برادس</h1>
+                    <p>نظام قضائي شامل لتنظيم مملكة ايميا وضمان العدل والنظام</p>
+                </div>
+            </div>
+
+            <!-- الصفحات -->
+            <div style="width: 100%; max-width: 800px;">
+                <!-- الصفحة الرئيسية -->
+                <div class="page active" id="home">
+                    <div class="cards-container">
+                        <div class="card" onclick="this.classList.toggle('flipped')">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <img src="3B816DF5-570C-4B7D-87DD-391DB9019276.jpeg" alt="رانبوا" class="card-image">
+                                    <div class="card-name">رانبوا</div>
+                                    <div class="card-title">قائد المحكمة</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="achievements">
+                                        <div class="achievement-title">الإنجازات</div>
+                                        <div class="achievement-item">مؤسس الرقابة العليا</div>
+                                        <div class="achievement-item">مؤسس قوانين ايميا</div>
+                                        <div class="achievement-item">صانع قوانين المحكمة</div>
+                                        <div class="achievement-item">صانع أنظمة المحكمة</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" onclick="this.classList.toggle('flipped')">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <img src="BEE38781-30B1-42BB-AF4A-697175BBE728.jpeg" alt="ميتسوري" class="card-image">
+                                    <div class="card-name">ميتسوري</div>
+                                    <div class="card-title">قائدة لجنة المراقبة</div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="achievements">
+                                        <div class="achievement-title">الإنجازات</div>
+                                        <div class="achievement-item">تغطية إدارة المراقبة 24 ساعة</div>
+                                        <div class="achievement-item">أسرع استلام للقيادة</div>
+                                        <div class="achievement-item">منظمة إدارة المراقبة</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+
+                <!-- صفحة قوانين السبام -->
+                <div class="page" id="spam">
+                    <h1 class="page-title">قوانين السبام</h1>
+                    <p class="page-subtitle">نظام مراقبة السبام والرسائل المكررة</p>
+
+                    <div class="laws-container">
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">1</span> أربع رسائل فما فوق = سبام</div>
+                            <div class="law-description">إرسال أربع رسائل أو أكثر متتالية يعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">2</span> رسائل بدون معنى = سبام</div>
+                            <div class="law-description">إرسال 3 ملصقات عشوائية أو أحرف عشوائية</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">3</span> ثلاث أسئلة قبل إجابة = سبام</div>
+                            <div class="law-description">إرسال ثلاث أسئلة قبل أن يجيب المشارك</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">4</span> البوتات الزائدة = سبام</div>
+                            <div class="law-description">بوتات التفاعل والسبام بوت بألعاب كثيرة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">5</span> خمس صور = سبام</div>
+                            <div class="law-description">إرسال 5 صور أو أكثر يعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">6</span> تكرار الإجابة = سبام</div>
+                            <div class="law-description">يُسمح بكتابة الإجابة مرة واحدة أو مرتين فقط</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">7</span> مسابقة عشوائية = سبام</div>
+                            <div class="law-description">المسابقات العشوائية بدون تنظيم تعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">8</span> تست وهيا ونقاط = سبام</div>
+                            <div class="law-description">الإكثار من هذه الرموز يعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">9</span> مشاركة المقدم = سبام</div>
+                            <div class="law-description">إذا شارك المقدم بأي شكل يعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">10</span> عدم التنوع = سبام</div>
+                            <div class="law-description">أقل من 15 لقب للتنوع يعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">11</span> ألقاب من حرفين = سبام</div>
+                            <div class="law-description">الألقاب التي تتكون من حرفين فقط تعتبر سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">12</span> المحاكيات ممنوعة = سبام</div>
+                            <div class="law-description">المحاكيات ممنوعة ويتم خصم تفاعلها</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">13</span> إرسال أشخاص = سبام</div>
+                            <div class="law-description">إرسال أشخاص ليفعلوا سبام بنقابات أخرى</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">14</span> كثرة المخالفات = خصم إضافي</div>
+                            <div class="law-description">كثرة المخالفات قد تسبب زيادات في الخصم</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">15</span> التحذير من السبام</div>
+                            <div class="law-description">المسؤول سيحذرك من كثرة السبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">16</span> الرد على المنشنات = ليس سبام</div>
+                            <div class="law-description">الرد على المنشنات ليس سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">17</span> الضحكة الطويلة = ليس سبام</div>
+                            <div class="law-description">الضحكة الطويلة برسالة واحدة ليست سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">18</span> تبديل المقدم = ليس سبام</div>
+                            <div class="law-description">تبديل المقدم مع الإعلام ليس سبام</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">19</span> إعادة اللقب = ليس سبام</div>
+                            <div class="law-description">إعادة اللقب لأنه كلج مرة ليس سبام</div>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <div class="note-title">ملاحظات مهمة:</div>
+                        <div>استغلال حركات ملتوية سيتم التعامل معه بقسوة</div>
+                        <div>إذا وصل خصم النقابة 30% ستقصى تلقائياً</div>
+                        <div>طرد المراقب دون رجوع إلى رانبوا سيتم التعامل معه بخصم عالي</div>
+                        <div>أي بوت في النقابة سيتم اقصاء الرقم مباشرة</div>
+                        <div>أي شكوى تعود إلى المسؤول رانبوا</div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+
+                <!-- صفحة الشتم والاحتكاك -->
+                <div class="page" id="insult">
+                    <h1 class="page-title">الشتم والاحتكاك</h1>
+                    <p class="page-subtitle">قوانين السلوك والاحترام</p>
+
+                    <div class="laws-container">
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">1</span> أي كلام مشفر = شتم</div>
+                            <div class="law-description">الكلام المشفر يعتبر شتم</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">2</span> أي كلام عنصري = شتم</div>
+                            <div class="law-description">أي كلام عنصري يعتبر شتم</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">3</span> الإيحاءات = شتم</div>
+                            <div class="law-description">الإيحاءات والتلميحات تعتبر شتم</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">4</span> الألفاظ النابية = شتم</div>
+                            <div class="law-description">الألفاظ النابية تعتبر شتم</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">5</span> شتم المملكة = طرد مؤقت</div>
+                            <div class="law-description">شتم المملكة يؤدي إلى طرد مؤقت</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">6</span> صورة شخصية = احتكاك</div>
+                            <div class="law-description">إرسال صورة شخصية يعتبر احتكاك</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">7</span> غزل بين الجنسين = احتكاك</div>
+                            <div class="law-description">أي كلام غزل بين ولد وبنت احتكاك</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">8</span> غزل زائد = احتكاك</div>
+                            <div class="law-description">أي كلام غزل زائد احتكاك</div>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <div class="note-title">ملاحظات مهمة:</div>
+                        <div>جميع القوانين تشمل الملصقات أيضاً</div>
+                        <div>العقوبات قد تصل إلى طرد مؤبد</div>
+                        <div>أي كلام عن السياسة قد يؤدي للطرد</div>
+                        <div>التحرش يؤدي إلى طرد مؤبد</div>
+                        <div>أي قرار غير لائق سيتم الحكم عليه برجوع إلى رانبوا</div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+
+                <!-- صفحة الحسبة -->
+                <div class="page" id="hisba">
+                    <h1 class="page-title">الحسبة</h1>
+                    <p class="page-subtitle">قوانين الأسئلة والفعاليات</p>
+
+                    <div class="laws-container">
+                        <div class="section-header">الأسئلة:</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">1</span> ثلاث أسئلة فقط</div>
+                            <div class="law-description">يُسمح بإرسال 3 أسئلة فقط في كل مرة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">2</span> إعلان الإجابات</div>
+                            <div class="law-description">بعد الأسئلة الثلاثة يجب إعلان الإجابات</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">3</span> ممنوع الأسئلة المفاجئة</div>
+                            <div class="law-description">يمنع الأسئلة المفاجئة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">4</span> تكرار الصورة</div>
+                            <div class="law-description">يمنع تكرار نفس الصورة أكثر من مرة باليوم</div>
+                        </div>
+
+                        <div class="section-header">الفعاليات:</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">5</span> مدة الفعالية</div>
+                            <div class="law-description">يجب أن تستمر الفعالية 10 دقائق على الأقل</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">6</span> تكرار الفعالية</div>
+                            <div class="law-description">يُسمح بتكرار نفس الفعالية 3 مرات فقط</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">7</span> إعلان النتائج</div>
+                            <div class="law-description">بعد 30 دقيقة يمكن إعلان النتائج</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">8</span> ممنوع الخلط</div>
+                            <div class="law-description">عند إعلان مسابقة يمنع إعلان أسئلة أخرى</div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+
+                <!-- صفحة المحكمة -->
+                <div class="page" id="court">
+                    <h1 class="page-title">قوانين المحكمة</h1>
+                    <p class="page-subtitle">نظام العقوبات والتأديب</p>
+
+                    <div class="laws-container">
+                        <div class="section-header">القسم الأول: إنذار واحد</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">1</span> التأخر في تنفيذ الأوامر</div>
+                            <div class="law-description">التأخر في تنفيذ الأوامر دون عذر</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">2</span> فعل مخالف</div>
+                            <div class="law-description">القيام بفعل مخالف</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">3</span> نسيان المهام</div>
+                            <div class="law-description">نسيان المهام أو إهمال جزئي</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">4</span> استفزاز الإداريين</div>
+                            <div class="law-description">استفزاز الإداريين بأي شكل</div>
+                        </div>
+
+                        <div class="section-header">القسم الثاني: إنذارين</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">5</span> الإساءة إلى زميل</div>
+                            <div class="law-description">الإساءة إلى زميل إداري</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">6</span> التقليل من الهيبة</div>
+                            <div class="law-description">التقليل من هيبة المجالس</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">7</span> الغياب غير المبرر</div>
+                            <div class="law-description">الغياب غير المبرر عن الاجتماعات</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">8</span> الرد الهجومي</div>
+                            <div class="law-description">الرد الهجومي على النقد البنّاء</div>
+                        </div>
+
+                        <div class="section-header">القسم الثالث: إنذار ثالث + سحب الصلاحية</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">9</span> عدم التعاون</div>
+                            <div class="law-description">عدم التعاون المتكرر</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">10</span> التشكيك في القيادة</div>
+                            <div class="law-description">التشكيك في القيادة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">11</span> إثارة الفتن</div>
+                            <div class="law-description">إثارة الفتن بين الأطراف</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">12</span> تجاوزات متكررة</div>
+                            <div class="law-description">ارتكاب تجاوزات متكررة</div>
+                        </div>
+
+                        <div class="section-header">القسم الرابع: الإعفاء من المنصب</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">13</span> التمرد العلني</div>
+                            <div class="law-description">التمرد العلني على القيادة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">14</span> افتعال الفوضى</div>
+                            <div class="law-description">افتعال الفوضى</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">15</span> إفشاء الأسرار</div>
+                            <div class="law-description">إفشاء الأسرار الإدارية</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">16</span> تجاهل التعليمات</div>
+                            <div class="law-description">تجاهل التعليمات الاستراتيجية</div>
+                        </div>
+
+                        <div class="section-header">القسم الخامس: الطرد المؤبد</div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">17</span> محاولة الانقلاب</div>
+                            <div class="law-description">محاولة الانقلاب على القيادة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">18</span> التخريب الممنهج</div>
+                            <div class="law-description">تخريب ممنهج</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">19</span> شتم القيادة</div>
+                            <div class="law-description">سبّ أو شتم القيادة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">20</span> نشر الإشاعات</div>
+                            <div class="law-description">نشر الإشاعات وتشويه السمعة</div>
+                        </div>
+
+                        <div class="law-item">
+                            <div class="law-title"><span class="law-number">21</span> فبركة المحادثات</div>
+                            <div class="law-description">فبركة المحادثات</div>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <div class="note-title">ملاحظة مهمة:</div>
+                        <div>أي قرار لم يكتب ويراه المسؤول رانبوا صحيحاً سوف يعتمد</div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+
+                <!-- صفحة الاختبار -->
+                <div class="page" id="quiz">
+                    <h1 class="page-title">اختبر معلوماتك</h1>
+                    <p class="page-subtitle">اختبار شامل بأسئلة عشوائية</p>
+
+                    <div class="quiz-container" id="quizContainer">
+                        <div id="quizContent"></div>
+                    </div>
+
+                    <div style="text-align: center; width: 100%;">
+                        <a href="https://wa.me/212779420551" class="contact-link">تواصل مع رانبوا</a>
+                    </div>
+
+                    <div class="footer">الحقوق محفوظة للرقابة العليا © 2024</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // إنشاء النجوم
+        function createStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        // بنك الأسئلة
+        const allQuestions = [
+            { q: "كم عدد الرسائل المتتالية التي تعتبر سبام؟", opts: ["3 رسائل", "4 رسائل", "5 رسائل", "6 رسائل"], ans: 1 },
+            { q: "هل إرسال 3 ملصقات عشوائية يعتبر سبام؟", opts: ["لا", "نعم", "فقط إذا كانت ملونة", "لا أعرف"], ans: 1 },
+            { q: "كم عدد الأسئلة المسموح بها قبل الإجابة؟", opts: ["2", "3", "4", "5"], ans: 1 },
+            { q: "كم عدد الصور التي تعتبر سبام؟", opts: ["3 صور", "4 صور", "5 صور", "6 صور"], ans: 2 },
+            { q: "كم مرة يُسمح بتكرار الإجابة؟", opts: ["مرة واحدة", "مرتين", "ثلاث مرات", "بدون حد"], ans: 1 },
+            { q: "كم لقب يجب توفره للتنوع؟", opts: ["10 ألقاب", "12 لقب", "15 لقب", "20 لقب"], ans: 2 },
+            { q: "كم حرف يجب أن يكون اللقب على الأقل؟", opts: ["حرف واحد", "حرفين", "3 أحرف", "4 أحرف"], ans: 2 },
+            { q: "ما نسبة الخصم التي تؤدي للاقصاء التلقائي؟", opts: ["20%", "25%", "30%", "40%"], ans: 2 },
+            { q: "هل الرد على المنشنات يعتبر سبام؟", opts: ["نعم", "لا", "أحياناً", "فقط إذا طال"], ans: 1 },
+            { q: "هل الضحكة الطويلة برسالة واحدة سبام؟", opts: ["نعم", "لا", "ربما", "يعتمد على الحالة"], ans: 1 },
+            { q: "ما حد أدنى لمدة الفعالية؟", opts: ["5 دقائق", "10 دقائق", "15 دقيقة", "20 دقيقة"], ans: 1 },
+            { q: "كم مرة يُسمح بتكرار الفعالية نفسها؟", opts: ["مرة واحدة", "مرتين", "3 مرات", "4 مرات"], ans: 2 },
+            { q: "بعد كم دقيقة يمكن إعلان نتائج المسابقة؟", opts: ["10 دقائق", "20 دقيقة", "30 دقيقة", "45 دقيقة"], ans: 2 },
+            { q: "هل يمكن الخلط بين الأسئلة والمسابقات؟", opts: ["نعم", "لا", "أحياناً", "فقط في الحالات الطارئة"], ans: 1 },
+            { q: "ما عقوبة شتم المملكة؟", opts: ["إنذار", "طرد مؤقت", "طرد مؤبد", "خصم نقاط"], ans: 1 },
+            { q: "هل الكلام المشفر يعتبر شتم؟", opts: ["لا", "نعم", "فقط إذا كان واضح", "لا أعرف"], ans: 1 },
+            { q: "ما عقوبة إرسال صورة شخصية؟", opts: ["إنذار", "احتكاك", "طرد", "خصم نقاط"], ans: 1 },
+            { q: "هل الغزل بين الجنسين احتكاك؟", opts: ["لا", "نعم", "فقط إذا كان كثير", "لا أعرف"], ans: 1 },
+            { q: "ما أول عقوبة في المحكمة؟", opts: ["طرد", "إنذار واحد", "خصم نقاط", "إيقاف"], ans: 1 },
+            { q: "كم إنذار قبل سحب الصلاحية؟", opts: ["1", "2", "3", "4"], ans: 2 },
+            { q: "ما عقوبة التمرد العلني؟", opts: ["إنذار", "طرد مؤقت", "إعفاء من المنصب", "طرد مؤبد"], ans: 2 },
+            { q: "هل يمكن طرد المراقب دون إخبار رانبوا؟", opts: ["نعم", "لا", "أحياناً", "فقط في الحالات الطارئة"], ans: 1 },
+            { q: "ما عقوبة أي بوت في النقابة؟", opts: ["إنذار", "خصم نقاط", "اقصاء الرقم مباشرة", "طرد مؤقت"], ans: 2 },
+            { q: "هل المحاكيات ممنوعة؟", opts: ["لا", "نعم", "فقط بعض أنواعها", "لا أعرف"], ans: 1 },
+            { q: "من يتولى الفصل في الشكاوي؟", opts: ["أي مسؤول", "رانبوا", "لجنة", "التصويت"], ans: 1 },
+            { q: "هل تكرار نفس الصورة باليوم مسموح؟", opts: ["نعم", "لا", "مرة واحدة فقط", "حسب الحالة"], ans: 1 },
+            { q: "ما عقوبة الإساءة إلى زميل إداري؟", opts: ["إنذار واحد", "إنذارين", "إنذار ثالث", "طرد"], ans: 1 },
+            { q: "هل الأسئلة المفاجئة مسموحة؟", opts: ["نعم", "لا", "أحياناً", "فقط للمسابقات"], ans: 1 },
+            { q: "ما عقوبة إفشاء الأسرار الإدارية؟", opts: ["إنذار", "سحب الصلاحية", "إعفاء من المنصب", "طرد"], ans: 2 },
+            { q: "هل التحرش يؤدي للطرد المؤبد؟", opts: ["لا", "نعم", "حسب الحالة", "لا أعرف"], ans: 1 }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+        let quizQuestions = [];
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function startQuiz() {
+            quizQuestions = shuffleArray(allQuestions).slice(0, 25);
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('quizContent');
+            const q = quizQuestions[currentQuestion];
+            const shuffledOptions = shuffleArray(q.opts.map((opt, idx) => ({ text: opt, originalIdx: idx })));
+            
+            let html = `
+                <div class="quiz-question">السؤال ${currentQuestion + 1} من ${quizQuestions.length}</div>
+                <div class="quiz-question" style="font-size: 16px; margin-bottom: 15px;">${q.q}</div>
+                <div class="quiz-options">
+            `;
+            
+            shuffledOptions.forEach((opt, i) => {
+                html += `<div class="quiz-option" onclick="selectAnswer(${opt.originalIdx})">${opt.text}</div>`;
+            });
+            
+            html += `</div>`;
+            
+            container.innerHTML = html;
+            answered = false;
+        }
+
+        function selectAnswer(idx) {
+            if (answered) return;
+            answered = true;
+            
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            if (idx === q.ans) {
+                score++;
+                options.forEach((opt, i) => {
+                    const text = opt.textContent;
+                    const originalIdx = q.opts.indexOf(text);
+                    if (originalIdx === idx) {
+                        opt.classList.add('correct');
+                    }
+                });
+                showResult(true);
+            } else {
+                options.forEach((opt, i) => {
+                    const text = opt.textContent;
+                    const optIdx = q.opts.indexOf(text);
+                    if (optIdx === idx) {
+                        opt.classList.add('incorrect');
+                    }
+                    if (optIdx === q.ans) {
+                        opt.classList.add('correct');
+                    }
+                });
+                showResult(false);
+            }
+        }
+
+        function showResult(correct) {
+            const container = document.getElementById('quizContent');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `quiz-result ${correct ? 'correct' : 'incorrect'}`;
+            resultDiv.textContent = correct ? 'إجابة صحيحة' : 'إجابة خاطئة';
+            container.appendChild(resultDiv);
+            
+            if (currentQuestion < quizQuestions.length - 1) {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-btn';
+                btn.textContent = 'السؤال التالي';
+                btn.onclick = () => {
+                    currentQuestion++;
+                    showQuestion();
+                };
+                container.appendChild(btn);
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showFinalScore() {
+            const container = document.getElementById('quizContent');
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            
+            let message = '';
+            if (percentage === 100) message = 'ممتاز جداً! أنت خبير بالقوانين!';
+            else if (percentage >= 80) message = 'ممتاز! معرفتك قوية جداً';
+            else if (percentage >= 60) message = 'جيد! تحتاج لمراجعة بعض القوانين';
+            else if (percentage >= 40) message = 'متوسط، ادرس القوانين أكثر';
+            else message = 'ضعيف، يجب دراسة القوانين بعناية';
+            
+            const scoreDiv = document.createElement('div');
+            scoreDiv.className = 'quiz-score';
+            scoreDiv.innerHTML = `
+                <div style="font-size: 24px; margin-bottom: 12px;">${score} / ${quizQuestions.length}</div>
+                <div style="font-size: 20px; margin-bottom: 12px;">${percentage}%</div>
+                <div style="font-size: 16px;">${message}</div>
+            `;
+            
+            container.innerHTML = '';
+            container.appendChild(scoreDiv);
+            
+            const btn = document.createElement('button');
+            btn.className = 'quiz-btn';
+            btn.textContent = 'حاول مرة أخرى';
+            btn.onclick = startQuiz;
+            container.appendChild(btn);
+        }
+
+        function showPage(pageId, event) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة الجديدة مع تأثير
+            const newPage = document.getElementById(pageId);
+            newPage.classList.add('active');
+            
+            // تحديث الأزرار النشطة
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // إغلاق القائمة على الجوال
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+            
+            // بدء الاختبار إذا كانت صفحة الاختبار
+            if (pageId === 'quiz') {
+                setTimeout(startQuiz, 100);
+            }
+            
+            // التمرير الفوري للأعلى
+            const rightSection = document.querySelector('.right-section');
+            rightSection.scrollTop = 0;
+            setTimeout(() => {
+                rightSection.scrollTop = 0;
+            }, 50);
+        }
+
+        function toggleSidebar() {
+            document.getElementById('navSidebar').classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('navSidebar');
+            const menuBtn = document.querySelector('.menu-btn');
+            if (window.innerWidth <= 768 && !sidebar.contains(event.target) && !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
